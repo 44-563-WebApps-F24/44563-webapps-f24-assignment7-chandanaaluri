@@ -1,72 +1,128 @@
 <!DOCTYPE html>
 <html>
+<head>
     <title>Lab-7</title>
-    <body>
-        <link rel="stylesheet" href="stylesheet.css">
-        <h1>Chandana Aluri goes on safair</h1>
-        <div class="game-info">
-            <p>Click on the locations to find rare animals, watch out for the lion!</p>
-            <p id="locations">Number of locations checked is zero.</p>
-            <p id="score">Score is zero.</p>
-            <p>Click for help.</p>
-            <p id="help">Help report</p>
-        </div>
-        
- <div class="game-grid">
-    <div class="row">
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-    </div>
-
-    <div class="row">
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-    </div>
-
-    <div class="row">
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-    </div>
-
-    <div class="row">
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-    </div>
-
-    <div class="row">
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-    </div>
-
-    <div class="row">
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
-        <div class="location tree"></div>
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+    <h1>Chandana Aluri goes on safari</h1>
+    <div class="game-info">
+        <p class="instructions">Click on the locations to find rare animals, watch out for the lion!</p>
+        <p class="status" id="locations">Number of locations checked is zero.</p>
+        <p id="score">Score is zero.</p>
+        <p onclick="help()">Click for help.</p>
+        <p id="help">Help report</p>
     </div>
     
-</div>
+    <div class="game-grid">
+        <!-- Dynamically add 6 rows, each with 6 divs as locations -->
+        <div class="row">
+            <div class="location tree" id="cell-0" onclick="check(0)"></div>
+            <div class="location tree" id="cell-1" onclick="check(1)"></div>
+            <div class="location tree" id="cell-2" onclick="check(2)"></div>
+            <div class="location tree" id="cell-3" onclick="check(3)"></div>
+            <div class="location tree" id="cell-4" onclick="check(4)"></div>
+            <div class="location tree" id="cell-5" onclick="check(5)"></div>
+        </div>
+        <div class="row">
+            <div class="location tree" id="cell-6" onclick="check(6)"></div>
+            <div class="location tree" id="cell-7" onclick="check(7)"></div>
+            <div class="location tree" id="cell-8" onclick="check(8)"></div>
+            <div class="location tree" id="cell-9" onclick="check(9)"></div>
+            <div class="location tree" id="cell-10" onclick="check(10)"></div>
+            <div class="location tree" id="cell-11" onclick="check(11)"></div>
+        </div>
+        <div class="row">
+            <div class="location tree" id="cell-12" onclick="check(12)"></div>
+            <div class="location tree" id="cell-13" onclick="check(13)"></div>
+            <div class="location tree" id="cell-14" onclick="check(14)"></div>
+            <div class="location tree" id="cell-15" onclick="check(15)"></div>
+            <div class="location tree" id="cell-16" onclick="check(16)"></div>
+            <div class="location tree" id="cell-17" onclick="check(17)"></div>
+        </div>
+        <div class="row">
+            <div class="location tree" id="cell-18" onclick="check(18)"></div>
+            <div class="location tree" id="cell-19" onclick="check(19)"></div>
+            <div class="location tree" id="cell-20" onclick="check(20)"></div>
+            <div class="location tree" id="cell-21" onclick="check(21)"></div>
+            <div class="location tree" id="cell-22" onclick="check(22)"></div>
+            <div class="location tree" id="cell-23" onclick="check(23)"></div>
+        </div>
+        <div class="row">
+            <div class="location tree" id="cell-24" onclick="check(24)"></div>
+            <div class="location tree" id="cell-25" onclick="check(25)"></div>
+            <div class="location tree" id="cell-26" onclick="check(26)"></div>
+            <div class="location tree" id="cell-27" onclick="check(27)"></div>
+            <div class="location tree" id="cell-28" onclick="check(28)"></div>
+            <div class="location tree" id="cell-29" onclick="check(29)"></div>
+        </div>
+        <div class="row">
+            <div class="location tree" id="cell-30" onclick="check(30)"></div>
+            <div class="location tree" id="cell-31" onclick="check(31)"></div>
+            <div class="location tree" id="cell-32" onclick="check(32)"></div>
+            <div class="location tree" id="cell-33" onclick="check(33)"></div>
+            <div class="location tree" id="cell-34" onclick="check(34)"></div>
+            <div class="location tree" id="cell-35" onclick="check(35)"></div>
+        </div>
+    </div>
+
+    <script>
+        let ids = Array.from({ length: 36 }, (_, i) => `cell-${i}`);
+        let score = 0;
+        let locationsVisited = 0;
+        let lastLocation = 0;
+        let zebraLocations = [1, 8, 12, 22, 34];
+        let lionLocation = 14;
+        let gameOver = false;
+        function check(position) {
+            if (gameOver) return;
+            
+            let imageId = ids[position];
+            let imageElement = document.getElementById(imageId);
+            if (position === lionLocation) {
+                imageElement.style.backgroundImage = "url('lion.jpg')"; 
+                gameOver = true;
+                score -= 2;
+                alert("Game Over! You encountered a lion!");
+            } else if (zebraLocations.includes(position)) {
+                imageElement.style.backgroundImage = "url('zebra.jpg')"; 
+                score += 4;
+            } else {
+                imageElement.style.backgroundImage = "url('elephant.jpg')"; 
+                score++;
+            }
+
+            locationsVisited++;
+            document.getElementById('locations').textContent = `Number of locations checked is ${locationsVisited}.`;
+            document.getElementById('score').textContent = `Score is ${score}.`;
+            lastLocation = position;
+        }
+
+        function help() {
+            let message = getHelpMessage();
+            document.getElementById('help').textContent = message;
+        }
+        function getHelpMessage() {
+            let neighbors = [
+                lastLocation - 1, lastLocation + 1,
+                lastLocation - 6, lastLocation + 6
+            ];
+
+            if (neighbors.some(n => zebraLocations.includes(n))) {
+                return "I see stripes";
+            }
+
+            let lionRow = Math.floor(lionLocation / 6);
+            let lionCol = lionLocation % 6;
+            let lastRow = Math.floor(lastLocation / 6);
+            let lastCol = lastLocation % 6;
+
+            if (Math.abs(lionRow - lastRow) <= 1 && Math.abs(lionCol - lastCol) <= 1) {
+                return "Rawr";
+            }
+
+            return "It's grey";
+        }
+    </script>
 </body>
 </html>

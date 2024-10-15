@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chandana Builds List with Divs</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f3f4f6;
+    margin: 20px;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 20px; /* Spacing below the title */
+}
+
+input {
+    padding: 10px;
+    margin: 10px;
+    font-size: 16px;
+}
+
+button {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    background-color: #3498db; /* Button color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transitions */
+}
+
+button:hover {
+    background-color: #2980b9; /* Darker color on hover */
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    margin-top: 20px;
+}
+
+.divlist {
+    background-color: #ecf0f1;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    width: 200px; /* Fixed width for list items */
+    text-align: center; /* Center text in divs */
+}
+
+    </style>
+</head>
+<body>
+    <h1>Chandana Builds List with Divs</h1>
+    <input type="text" id="itemInput" placeholder="Enter an item">
+    <button onclick="addEnd()">Add End</button>
+    <button onclick="addFront()">Add Front</button>
+    <button onclick="remove()">Remove</button>
+
+    <div class="flex-container" id="flexContainer">
+        <!-- Initial items can be added here -->
+        <div class="divlist">Item 1</div>
+        <div class="divlist">Item 2</div>
+        <div class="divlist">Item 3</div>
+    </div>
+
+    <script>
+        function addEnd() {
+            const input = document.getElementById("itemInput").value;
+            const newDiv = document.createElement("div");
+            newDiv.innerHTML = input; // Set innerHTML to input value
+            newDiv.className = "divlist"; // Add class "divlist"
+            document.getElementById("flexContainer").appendChild(newDiv); // Append to flex container
+            document.getElementById("itemInput").value = ""; // Clear the input
+        }
+
+        function addFront() {
+            const input = document.getElementById("itemInput").value;
+            const newDiv = document.createElement("div");
+            newDiv.innerHTML = input; // Set innerHTML to input value
+            newDiv.className = "divlist"; // Add class "divlist"
+            const container = document.getElementById("flexContainer");
+            container.insertBefore(newDiv, container.firstChild); // Insert at the front
+            document.getElementById("itemInput").value = ""; // Clear the input
+        }
+
+        function remove() {
+            const divListItems = document.getElementsByClassName("divlist");
+            const length = divListItems.length;
+            if (length > 0) {
+                const middleIndex = Math.floor(length / 2);
+                divListItems[middleIndex].remove(); // Remove middle item
+            }
+        }
+    </script>
+</body>
+</html>
