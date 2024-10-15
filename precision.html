@@ -80,37 +80,36 @@ button.success:active {
     <button onclick="recordTime()">Stop Timer</button>
 
     <script>
-        // Variable to record stop time
         let stopTime = undefined;
-
-        // Function to start the countdown timer
+    
         function startTimer() {
-            let count = 5; // Countdown from 5 seconds
+            // Generate a random countdown value between 2 and 10
+            let count = Math.floor(Math.random() * 9) + 2;
             document.getElementById("counter").textContent = count;
-
-            // Use a loop to create the countdown
-            for (let i = 0; i < 5; i++) {
+    
+            // Start the countdown
+            for (let i = 0; i < count; i++) {
                 setTimeout(() => {
-                    document.getElementById("counter").textContent = 4 - i; // Show countdown
-                }, i * 1000); // Decrementing every second
+                    document.getElementById("counter").textContent = count - 1 - i;
+                }, i * 1000);
             }
-
-            // Final check after countdown
+    
+            // Set up the final timeout to check if the user stopped the timer
             setTimeout(() => {
                 if (stopTime === undefined) {
                     document.getElementById("target").textContent = "Too Slow";
                 } else {
-                    const elapsedTime = Math.abs(stopTime - (Date.now() - 5000)); // Adjust for 5 seconds
+                    const elapsedTime = Math.abs(stopTime - (Date.now() - count * 1000));
                     document.getElementById("target").textContent = `Time was ${elapsedTime} milliseconds`;
                 }
-            }, 5000); // Runs after the countdown
+            }, count * 1000);
         }
-
-        // Function to record the time when the stop button is pressed
+    
         function recordTime() {
             stopTime = Date.now();
             console.log("Stop time recorded at: " + stopTime);
         }
     </script>
+    
 </body>
 </html>

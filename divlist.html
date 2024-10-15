@@ -6,55 +6,54 @@
     <title>Chandana Builds List with Divs</title>
     <style>
         body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f3f4f6;
-    margin: 20px;
-}
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f3f4f6;
+            margin: 20px;
+        }
 
-h1 {
-    color: #2c3e50;
-    margin-bottom: 20px; /* Spacing below the title */
-}
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
 
-input {
-    padding: 10px;
-    margin: 10px;
-    font-size: 16px;
-}
+        input {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
 
-button {
-    font-size: 16px;
-    padding: 10px 20px;
-    margin: 10px;
-    cursor: pointer;
-    background-color: #3498db; /* Button color */
-    color: white; /* Text color */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s ease; /* Smooth transitions */
-}
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
 
-button:hover {
-    background-color: #2980b9; /* Darker color on hover */
-}
+        button:hover {
+            background-color: #2980b9;
+        }
 
-.flex-container {
-    display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center items horizontally */
-    margin-top: 20px;
-}
+        .flex-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
 
-.divlist {
-    background-color: #ecf0f1;
-    margin: 5px;
-    padding: 10px;
-    border-radius: 5px;
-    width: 200px; /* Fixed width for list items */
-    text-align: center; /* Center text in divs */
-}
-
+        .divlist {
+            background-color: #ecf0f1;
+            margin: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            width: 200px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -63,9 +62,9 @@ button:hover {
     <button onclick="addEnd()">Add End</button>
     <button onclick="addFront()">Add Front</button>
     <button onclick="remove()">Remove</button>
+    <button onclick="swap()">Swap</button> <!-- Added Swap button -->
 
     <div class="flex-container" id="flexContainer">
-        <!-- Initial items can be added here -->
         <div class="divlist">Item 1</div>
         <div class="divlist">Item 2</div>
         <div class="divlist">Item 3</div>
@@ -75,20 +74,20 @@ button:hover {
         function addEnd() {
             const input = document.getElementById("itemInput").value;
             const newDiv = document.createElement("div");
-            newDiv.innerHTML = input; // Set innerHTML to input value
-            newDiv.className = "divlist"; // Add class "divlist"
-            document.getElementById("flexContainer").appendChild(newDiv); // Append to flex container
-            document.getElementById("itemInput").value = ""; // Clear the input
+            newDiv.innerHTML = input;
+            newDiv.className = "divlist";
+            document.getElementById("flexContainer").appendChild(newDiv);
+            document.getElementById("itemInput").value = "";
         }
 
         function addFront() {
             const input = document.getElementById("itemInput").value;
             const newDiv = document.createElement("div");
-            newDiv.innerHTML = input; // Set innerHTML to input value
-            newDiv.className = "divlist"; // Add class "divlist"
+            newDiv.innerHTML = input;
+            newDiv.className = "divlist";
             const container = document.getElementById("flexContainer");
-            container.insertBefore(newDiv, container.firstChild); // Insert at the front
-            document.getElementById("itemInput").value = ""; // Clear the input
+            container.insertBefore(newDiv, container.firstChild);
+            document.getElementById("itemInput").value = "";
         }
 
         function remove() {
@@ -96,7 +95,52 @@ button:hover {
             const length = divListItems.length;
             if (length > 0) {
                 const middleIndex = Math.floor(length / 2);
-                divListItems[middleIndex].remove(); // Remove middle item
+                divListItems[middleIndex].remove();
+            }
+        }
+
+        function swap() {
+            const container = document.getElementById("flexContainer");
+            const items = Array.from(container.getElementsByClassName("divlist"));
+            const itemCount = items.length;
+
+            if (itemCount < 2) {
+                alert("Not enough items to swap.");
+                return;
+            }
+
+            // Randomly select two indices to swap
+            let index1 = Math.floor(Math.random() * itemCount);
+            let index2;
+            do {
+                index2 = Math.floor(Math.random() * itemCount);
+            } while (index1 === index2); // Ensure two different indices
+
+            // Get the elements to swap
+            const element1 = items[index1];
+            const element2 = items[index2];
+
+            // Check if elements are adjacent
+            if (Math.abs(index1 - index2) === 1) {
+                if (index1 < index2) {
+                    container.insertBefore(element2, element1);
+                } else {
+                    container.insertBefore(element1, element2);
+                }
+            } else {
+                // Non-adjacent elements
+                const next1 = element1.nextElementSibling;
+                const next2 = element2.nextElementSibling;
+
+                // Move element1 to element2's position
+                container.insertBefore(element1, next2);
+                
+                // Move element2 to element1's old position
+                if (next1) {
+                    container.insertBefore(element2, next1);
+                } else {
+                    container.appendChild(element2);
+                }
             }
         }
     </script>
