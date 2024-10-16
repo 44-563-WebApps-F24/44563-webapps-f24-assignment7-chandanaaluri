@@ -2,7 +2,7 @@
 # WebApps-F24-Assignment-7
 Assignment 7 on DOM
 
-[Hosted at Safari Page](https://44-563-webapps-f24.github.io/44563-webapps-f24-assignment7-chandanaaluri/safarihtml)
+[Hosted at Safari Page](https://44-563-webapps-f24.github.io/44563-webapps-f24-assignment7-chandanaaluri/safari.html)
 
 [Hosted at Precision Page](https://44-563-webapps-f24.github.io/44563-webapps-f24-assignment7-chandanaaluri/precision.html)
 
